@@ -2,16 +2,15 @@ import createHttpError from "http-errors";
 import { RequestHandler, Request } from "express";
 import { verifyAccessToken } from "./tools";
 import { TokenPayload } from "./tools";
-import { Response, NextFunction } from "express";
 
 interface UserRequest extends Request {
   user?: TokenPayload;
 }
 
-export const JWTAuthMiddleware = async (
+export const JWTAuthMiddleware: RequestHandler = async (
   req: UserRequest,
-  res: Response,
-  next: NextFunction
+  res,
+  next
 ) => {
   if (!req.headers.authorization) {
     next(
